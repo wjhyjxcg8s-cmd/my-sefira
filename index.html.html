@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EvArkadaşı — Türkiye'nin Ev Arkadaşı Platformu</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --terracotta: #C96A3B;
+    --cream: #FAF6F0;
+    --deep: #1A1208;
+    --warm: #E8D5B7;
+    --sage: #7A9E7E;
+    --rust: #8B3A1A;
+    --gold: #D4A847;
+    --muted: #6B5E4A;
+    --card-bg: #FFFDF9;
+    --shadow: 0 8px 40px rgba(26,18,8,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--deep);
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--deep);
+    padding: 0 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--cream);
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--terracotta); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    color: var(--warm);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .btn-nav {
+    background: var(--terracotta);
+    color: #fff !important;
+    padding: 8px 20px;
+    border-radius: 6px;
+    opacity: 1 !important;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--deep);
+    padding: 80px 5vw 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,106,59,0.18) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    border-radius: 50%;
+  }
+  .hero-inner { max-width: 680px; }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(201,106,59,0.2);
+    color: var(--terracotta);
+    border: 1px solid rgba(201,106,59,0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 20px;
+    font-weight: 900;
+  }
+  .hero h1 em { color: var(--terracotta); font-style: normal; }
+  .hero p {
+    color: var(--warm);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    opacity: 0.85;
+    margin-bottom: 36px;
+  }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--terracotta);
+    color: #fff;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--rust); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--cream);
+    border: 1.5px solid rgba(250,246,240,0.3);
+    padding: 14px 30px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: border-color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--warm); }
+
+  /* STATS */
+  .stats-bar {
+    background: var(--terracotta);
+    padding: 24px 5vw;
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  .stat { color: #fff; }
+  .stat strong { font-size: 1.8rem; font-family: 'Playfair Display', serif; display: block; }
+  .stat span { font-size: 0.85rem; opacity: 0.85; }
+
+  /* TABS */
+  .tabs-section { padding: 60px 5vw 0; }
+  .tabs-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .tabs-sub { color: var(--muted); margin-bottom: 28px; font-size: 0.95rem; }
+  .tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--warm);
+    border-radius: 10px;
+    padding: 4px;
+    display: inline-flex;
+    margin-bottom: 36px;
+  }
+  .tab {
+    padding: 10px 24px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab.active {
+    background: var(--deep);
+    color: var(--cream);
+  }
+
+  /* CARDS GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+    padding: 0 5vw 60px;
+  }
+
+  /* PROFILE CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border: 1px solid rgba(212,168,71,0.12);
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeUp 0.5s ease both;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(26,18,8,0.15); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, var(--deep) 0%, #2D1F0A 100%);
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+  }
+  .avatar {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    border: 3px solid var(--terracotta);
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--warm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--terracotta);
+    font-weight: 700;
+  }
+  .card-header-info { flex: 1; }
+  .card-name { font-family: 'Playfair Display', serif; color: var(--cream); font-size: 1.15rem; font-weight: 700; }
+  .card-role {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .role-host { background: rgba(201,106,59,0.25); color: var(--terracotta); }
+  .role-seeker { background: rgba(122,158,126,0.25); color: var(--sage); }
+  .verified-badge {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: var(--gold);
+    color: var(--deep);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .card-body { padding: 20px 24px; }
+
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .meta-chip {
+    background: var(--warm);
+    color: var(--muted);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .card-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--warm);
+    padding-left: 12px;
+    font-style: italic;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: var(--terracotta);
+    margin-bottom: 8px;
+  }
+
+  .prefs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .pref-tag {
+    background: rgba(201,106,59,0.08);
+    color: var(--rust);
+    border: 1px solid rgba(201,106,59,0.2);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 0.78rem;
+  }
+
+  .reviews { margin-bottom: 16px; }
+  .review-item {
+    background: var(--cream);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    border-left: 3px solid var(--sage);
+  }
+  .review-author { font-size: 0.75rem; font-weight: 700; color: var(--deep); margin-bottom: 3px; display: flex; justify-content: space-between; align-items: center; }
+  .stars { color: var(--gold); font-size: 0.75rem; }
+  .review-text { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+  .card-price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid var(--warm);
+    margin-top: 8px;
+  }
+  .price { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--terracotta); font-weight: 700; }
+  .price span { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; color: var(--muted); font-weight: 400; }
+  .btn-contact {
+    background: var(--deep);
+    color: var(--cream);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-contact:hover { background: var(--terracotta); }
+
+  /* HOUSE LISTING SPECIFIC */
+  .house-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background: linear-gradient(135deg, #c96a3b22, #7A9E7E22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+  }
+  .rooms-row { display: flex; gap: 12px; margin-bottom: 14px; }
+  .room-stat { text-align: center; flex: 1; background: var(--cream); border-radius: 8px; padding: 8px; }
+  .room-stat strong { display: block; font-size: 1.1rem; color: var(--deep); font-family: 'Playfair Display', serif; }
+  .room-stat small { font-size: 0.7rem; color: var(--muted); }
+
+  .compatibility-bar { margin-bottom: 16px; }
+  .compat-label { display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 4px; }
+  .compat-label span { color: var(--muted); }
+  .compat-label strong { color: var(--sage); }
+  .bar-bg { background: var(--warm); border-radius: 20px; height: 6px; }
+  .bar-fill { background: linear-gradient(90deg, var(--sage), var(--gold)); height: 6px; border-radius: 20px; transition: width 0.8s; }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep);
+    color: var(--warm);
+    padding: 40px 5vw;
+    text-align: center;
+  }
+  footer .f-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--cream); margin-bottom: 8px; }
+  footer .f-logo span { color: var(--terracotta); }
+  footer p { font-size: 0.82rem; opacity: 0.6; }
+
+  /* FILTER BAR */
+  .filter-bar {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--warm);
+    padding: 16px 5vw;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter-select {
+    border: 1.5px solid var(--warm);
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--deep);
+    background: var(--cream);
+    cursor: pointer;
+    outline: none;
+  }
+  .filter-input {
+    border: 1.5px solid var(--warm);
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--deep);
+    background: var(--cream);
+    flex: 1;
+    min-width: 180px;
+    outline: none;
+  }
+  .filter-input:focus, .filter-select:focus { border-color: var(--terracotta); }
+
+  @media (max-width: 640px) {
+    .hero { padding: 48px 5vw 60px; }
+    .stats-bar { gap: 1.5rem; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Ev<span>Arkadaşı</span></div>
+  <div class="nav-links">
+    <a href="#">Keşfet</a>
+    <a href="#">Nasıl Çalışır?</a>
+    <a href="#">Blog</a>
+    <a href="#">Yardım</a>
+    <a href="#" class="btn-nav">Ücretsiz Kayıt</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">🏠 Türkiye'nin #1 Ev Arkadaşı Platformu</div>
+    <h1>Güvenilir bir <em>ev arkadaşı</em> bulmak artık çok kolay</h1>
+    <p>İstanbul, Ankara, İzmir ve daha fazlasında binlerce doğrulanmış profil. Ev sahibi ya da kiracı — ihtiyacına göre filtrele, profilini incele, güvenle iletişime geç.</p>
+    <div class="hero-btns">
+      <button class="btn-primary">Ev Arkadaşı Ara</button>
+      <button class="btn-secondary">Ev İlanı Ekle</button>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><strong>14.800+</strong><span>Aktif İlan</span></div>
+  <div class="stat"><strong>52.000+</strong><span>Kayıtlı Kullanıcı</span></div>
+  <div class="stat"><strong>%94</strong><span>Memnuniyet Oranı</span></div>
+  <div class="stat"><strong>38</strong><span>Şehir</span></div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <input class="filter-input" type="text" placeholder="🔍  Şehir, semt veya mahalle ara...">
+  <select class="filter-select">
+    <option>Tüm İlanlar</option>
+    <option>Ev Sahibi Arıyor</option>
+    <option>Ev Arıyor</option>
+  </select>
+  <select class="filter-select">
+    <option>Bütçe Seçin</option>
+    <option>0 – 5.000 ₺</option>
+    <option>5.000 – 10.000 ₺</option>
+    <option>10.000 – 20.000 ₺</option>
+    <option>20.000 ₺+</option>
+  </select>
+  <select class="filter-select">
+    <option>Cinsiyet Tercihi</option>
+    <option>Kadın</option>
+    <option>Erkek</option>
+    <option>Fark etmez</option>
+  </select>
+  <select class="filter-select">
+    <option>Yaşam Tarzı</option>
+    <option>Sessiz / Sakin</option>
+    <option>Sosyal</option>
+    <option>Çalışkan</option>
+  </select>
+</div>
+
+<!-- TABS SECTION -->
+<section class="tabs-section">
+  <h2 class="tabs-title">İlanları Keşfet</h2>
+  <p class="tabs-sub">Ev sahibi arayanları veya kiracı arayanları filtrele.</p>
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab(this,'seekers')">🏡 Ev Arıyanlar</button>
+    <button class="tab" onclick="switchTab(this,'hosts')">🔑 Ev Sahibi Arıyanlar</button>
+  </div>
+</section>
+
+<!-- CARDS: SEEKERS (people looking for a house) -->
+<div class="cards-grid" id="tab-seekers">
+
+  <!-- Card 1 -->
+  <div class="card" style="animation-delay:0.05s">
+    <div class="card-header">
+      <div class="avatar">Z</div>
+      <div class="card-header-info">
+        <div class="card-name">Zeynep Kaya</div>
+        <div class="card-role role-seeker">Ev Arıyor</div>
+      </div>
+      <div class="verified-badge">✓ Doğrulandı</div>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <div class="meta-chip">📍 İstanbul, Kadıköy</div>
+        <div class="meta-chip">🎓 Lisans – Psikoloji</div>
+        <div class="meta-chip">💼 Freelance Tasarımcı</div>
+        <div class="meta-chip">👤 27 yaş • Kadın</div>
+        <div class="meta-chip">🚭 Sigara içmez</div>
+        <div class="meta-chip">🐱 Kedi dostu</div>
+      </div>
+      <p class="card-desc">"Sakin, düzenli ve saygılı biriyim. Gündüzleri evden çalışıyorum. Ortak alanları temiz tutmayı çok önemsiyorum."</p>
+
+      <div class="section-label">Tercihler</div>
+      <div class="prefs">
+        <span class="pref-tag">Kadın ev arkadaşı</span>
+        <span class="pref-tag">Evcil hayvan kabul</span>
+        <span class="pref-tag">Alkol yok</span>
+        <span class="pref-tag">Gece 23:00 sessizlik</span>
+        <span class="pref-tag">Fatura dahil</span>
+      </div>
+
+      <div class="section-label">Eski Ev Arkadaşlarının Yorumları</div>
+      <div class="reviews">
+        <div class="review-item">
+          <div class="review-author">Selin Arslan <span class="stars">★★★★★</span></div>
+          <div class="review-text">Zeynep mükemmel bir ev arkadaşıydı. Her zaman temiz, saygılı ve anlayışlıydı. Kesinlikle tavsiye ederim!</div>
+        </div>
+        <div class="review-item">
+          <div class="review-author">Merve Öztürk <span class="stars">★★★★☆</span></div>
+          <div class="review-text">Birlikte 1 yıl kaldık, hiç sorun çıkmadı. Mutfağı her zaman düzenli bırakırdı.</div>
+        </div>
+      </div>
+
+      <div class="compatibility-bar">
+        <div class="compat-label"><span>Profil Tamamlanma</span><strong>%92</strong></div>
+        <div class="bar-bg"><div class="bar-fill" style="width:92%"></div></div>
+      </div>
+
+      <div class="card-price-row">
+        <div class="price">8.000 – 12.000 ₺ <span>/ aylık bütçe</span></div>
+        <button class="btn-contact">Mesaj Gönder</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="card" style="animation-delay:0.10s">
+    <div class="card-header">
+      <div class="avatar">E</div>
+      <div class="card-header-info">
+        <div class="card-name">Emre Şahin</div>
+        <div class="card-role role-seeker">Ev Arıyor</div>
+      </div>
+      <div class="verified-badge">✓ Doğrulandı</div>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <div class="meta-chip">📍 Ankara, Çankaya</div>
+        <div class="meta-chip">🎓 Yüksek Lisans – Mühendislik</div>
+        <div class="meta-chip">💼 Yazılım Mühendisi</div>
+        <div class="meta-chip">👤 29 yaş • Erkek</div>
+        <div class="meta-chip">🚭 Sigara içmez</div>
+        <div class="meta-chip">🏋️ Sporcu</div>
+      </div>
+      <p class="card-desc">"Sessiz ama sosyal biriyim. Hafta içi işten döndükten sonra vakit geçirmeyi severim. Sabah erken kalkarım, gürültü yapmam."</p>
+
+      <div class="section-label">Tercihler</div>
+      <div class="prefs">
+        <span class="pref-tag">Cinsiyet fark etmez</span>
+        <span class="pref-tag">İnternet hızlı olsun</span>
+        <span class="pref-tag">Metro'ya yakın</span>
+        <span class="pref-tag">Uzun dönem</span>
+        <span class="pref-tag">Fatura dahil</span>
+      </div>
+
+      <div class="section-label">Eski Ev Arkadaşlarının Yorumları</div>
+      <div class="reviews">
+        <div class="review-item">
+          <div class="review-author">Burak Yıldız <span class="stars">★★★★★</span></div>
+          <div class="review-text">Emre ile 8 ay kaldım. Çok düzenli, kira ve faturayı hiç geciktirmedi. Harika bir insan.</div>
+        </div>
+      </div>
+
+      <div class="compatibility-bar">
+        <div class="compat-label"><span>Profil Tamamlanma</span><strong>%85</strong></div>
+        <div class="bar-bg"><div class="bar-fill" style="width:85%"></div></div>
+      </div>
+
+      <div class="card-price-row">
+        <div class="price">10.000 – 15.000 ₺ <span>/ aylık bütçe</span></div>
+        <button class="btn-contact">Mesaj Gönder</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="card" style="animation-delay:0.15s">
+    <div class="card-header">
+      <div class="avatar">A</div>
+      <div class="card-header-info">
+        <div class="card-name">Ayşe Demir</div>
+        <div class="card-role role-seeker">Ev Arıyor</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <div class="meta-chip">📍 İzmir, Alsancak</div>
+        <div class="meta-chip">🎓 Önlisans – İletişim</div>
+        <div class="meta-chip">💼 Öğrenci + Yarı zamanlı</div>
+        <div class="meta-chip">👤 22 yaş • Kadın</div>
+        <div class="meta-chip">🚬 Balkon dışında sigara</div>
+      </div>
+      <p class="card-desc">"İzmir Üniversitesi'nde okuyorum. Gündüz okul, akşam çalışıyorum. Ev genellikle sakin. Arkadaşlarım nadiren gelir."</p>
+
+      <div class="section-label">Tercihler</div>
+      <div class="prefs">
+        <span class="pref-tag">Kadın ev arkadaşı</span>
+        <span class="pref-tag">Öğrenci dostu</span>
+        <span class="pref-tag">Denize yakın</span>
+        <span class="pref-tag">Kısa dönem tamam</span>
+      </div>
+
+      <div class="section-label">Eski Ev Arkadaşlarının Yorumları</div>
+      <div class="reviews">
+        <div class="review-item">
+          <div class="review-author">Elif Kocabaş <span class="stars">★★★★☆</span></div>
+          <div class="review-text">Nazik ve anlayışlı biri. Zaman zaman geç saatlere kadar uyumuyor ama sesini kısıyor.</div>
+        </div>
+      </div>
+
+      <div class="compatibility-bar">
+        <div class="compat-label"><span>Profil Tamamlanma</span><strong>%71</strong></div>
+        <div class="bar-bg"><div class="bar-fill" style="width:71%"></div></div>
+      </div>
+
+      <div class="card-price-row">
+        <div class="price">4.000 – 7.000 ₺ <span>/ aylık bütçe</span></div>
+        <button class="btn-contact">Mesaj Gönder</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CARDS: HOSTS (hidden by default) -->
+<div class="cards-grid" id="tab-hosts" style="display:none">
+
+  <!-- Host Card 1 -->
+  <div class="card" style="animation-delay:0.05s">
+    <div class="house-img">🏙️</div>
+    <div class="card-header" style="background:linear-gradient(135deg,#1A2D1A,#2D1F0A)">
+      <div class="avatar" style="border-color:var(--sage)">M</div>
+      <div class="card-header-info">
+        <div class="card-name">Murat Aksoy</div>
+        <div class="card-role role-host">Ev Sahibi – Oda Kiraya Veriyor</div>
+      </div>
+      <div class="verified-badge">✓ Doğrulandı</div>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <div class="meta-chip">📍 İstanbul, Beşiktaş</div>
+        <div class="meta-chip">🎓 Doktora – İşletme</div>
+        <div class="meta-chip">💼 Akademisyen</div>
+        <div class="meta-chip">👤 35 yaş • Erkek</div>
+        <div class="meta-chip">🐕 Köpekli</div>
+        <div class="meta-chip">🚭 Sigara içmez</div>
+      </div>
+
+      <div class="rooms-row">
+        <div class="room-stat"><strong>3+1</strong><small>Daire</small></div>
+        <div class="room-stat"><strong>1</strong><small>Boş Oda</small></div>
+        <div class="room-stat"><strong>115 m²</strong><small>Brüt</small></div>
+        <div class="room-stat"><strong>2.</strong><small>Kat</small></div>
+      </div>
+
+      <p class="card-desc">"Sessiz, çalışkan birini arıyorum. Ev temiz ve bakımlı. Balkondan Boğaz manzarası var. Ev arkadaşı ile birlikte mutfak kullanılıyor."</p>
+
+      <div class="section-label">Ev Özellikleri</div>
+      <div class="prefs">
+        <span class="pref-tag">Isıtma merkezi</span>
+        <span class="pref-tag">Fiber internet</span>
+        <span class="pref-tag">Eşyalı oda</span>
+        <span class="pref-tag">Asansör</span>
+        <span class="pref-tag">Metrobüs 5 dk</span>
+        <span class="pref-tag">Park imkânı</span>
+      </div>
+
+      <div class="section-label">Eski Ev Arkadaşlarının Yorumları</div>
+      <div class="reviews">
+        <div class="review-item">
+          <div class="review-author">Can Doğan <span class="stars">★★★★★</span></div>
+          <div class="review-text">Murat Bey ile 14 ay kaldım. Çok anlayışlı, hiç sınır aşmadı. Ev tertemiz ve manzarası harika.</div>
+        </div>
+        <div class="review-item">
+          <div class="review-author">Hasan Çelik <span class="stars">★★★★★</span></div>
+          <div class="review-text">Profesyonel tutumu var. Sorunları anında çözüyor. Tavsiye ederim.</div>
+        </div>
+      </div>
+
+      <div class="card-price-row">
+        <div class="price">14.500 ₺ <span>/ ay (fatura dahil)</span></div>
+        <button class="btn-contact">İletişime Geç</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Host Card 2 -->
+  <div class="card" style="animation-delay:0.10s">
+    <div class="house-img">🏘️</div>
+    <div class="card-header" style="background:linear-gradient(135deg,#1A2D1A,#2D1F0A)">
+      <div class="avatar" style="border-color:var(--sage)">F</div>
+      <div class="card-header-info">
+        <div class="card-name">Fatma Çetin</div>
+        <div class="card-role role-host">Ev Sahibi – Oda Kiraya Veriyor</div>
+      </div>
+      <div class="verified-badge">✓ Doğrulandı</div>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <div class="meta-chip">📍 Ankara, Bahçelievler</div>
+        <div class="meta-chip">🎓 Lisans – Eğitim</div>
+        <div class="meta-chip">💼 Öğretmen</div>
+        <div class="meta-chip">👤 42 yaş • Kadın</div>
+        <div class="meta-chip">👨‍👩‍👧 Aile dostu</div>
+      </div>
+
+      <div class="rooms-row">
+        <div class="room-stat"><strong>4+1</strong><small>Daire</small></div>
+        <div class="room-stat"><strong>2</strong><small>Boş Oda</small></div>
+        <div class="room-stat"><strong>140 m²</strong><small>Brüt</small></div>
+        <div class="room-stat"><strong>Zemin</small></div>
+      </div>
+
+      <p class="card-desc">"İki kızım ile birlikte yaşıyorum. Sakin, düzenli bir ortamımız var. Tercihen kadın ev arkadaşı istiyoruz. Yemek paylaşımı opsiyonel."</p>
+
+      <div class="section-label">Ev Özellikleri</div>
+      <div class="prefs">
+        <span class="pref-tag">Geniş mutfak</span>
+        <span class="pref-tag">Bahçe kullanımı</span>
+        <span class="pref-tag">Eşyasız oda</span>
+        <span class="pref-tag">Okul yakını</span>
+        <span class="pref-tag">Doğalgaz</span>
+      </div>
+
+      <div class="section-label">Eski Ev Arkadaşlarının Yorumları</div>
+      <div class="reviews">
+        <div class="review-item">
+          <div class="review-author">Nilüfer Yılmaz <span class="stars">★★★★★</span></div>
+          <div class="review-text">Fatma Hanım adeta ikinci annem oldu. Ev sıcak, temiz. Çok mutluydum orada.</div>
+        </div>
+      </div>
+
+      <div class="card-price-row">
+        <div class="price">6.500 ₺ <span>/ oda / ay</span></div>
+        <button class="btn-contact">İletişime Geç</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Host Card 3 -->
+  <div class="card" style="animation-delay:0.15s">
+    <div class="house-img">🌆</div>
+    <div class="card-header" style="background:linear-gradient(135deg,#1A2D1A,#2D1F0A)">
+      <div class="avatar" style="border-color:var(--sage)">B</div>
+      <div class="card-header-info">
+        <div class="card-name">Berk Turan</div>
+        <div class="card-role role-host">Ev Sahibi – Daire Paylaşımı</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <div class="meta-chip">📍 İzmir, Karşıyaka</div>
+        <div class="meta-chip">🎓 Lisans – Mimarlık</div>
+        <div class="meta-chip">💼 Mimar</div>
+        <div class="meta-chip">👤 31 yaş • Erkek</div>
+        <div class="meta-chip">🎸 Müzisyen</div>
+        <div class="meta-chip">🚬 Balkon dışında</div>
+      </div>
+
+      <div class="rooms-row">
+        <div class="room-stat"><strong>2+1</strong><small>Daire</small></div>
+        <div class="room-stat"><strong>1</strong><small>Boş Oda</small></div>
+        <div class="room-stat"><strong>85 m²</small></div>
+        <div class="room-stat"><strong>3.</strong><small>Kat</small></div>
+      </div>
+
+      <p class="card-desc">"Akşamları bazen gitar çalıyorum ama kulaklıkla. Evde konser yok :) Sosyal, eğlenceli birini tercih ederim ama saygı şart."</p>
+
+      <div class="section-label">Ev Özellikleri</div>
+      <div class="prefs">
+        <span class="pref-tag">Deniz manzarası</span>
+        <span class="pref-tag">Klima</span>
+        <span class="pref-tag">Kısmen eşyalı</span>
+        <span class="pref-tag">Vapur iskelesi 10 dk</span>
+      </div>
+
+      <div class="section-label">Eski Ev Arkadaşlarının Yorumları</div>
+      <div class="reviews">
+        <div class="review-item">
+          <div class="review-author">Oğuz Kara <span class="stars">★★★★☆</span></div>
+          <div class="review-text">Berk çok eğlenceli biri. Ev rahat, ev arkadaşlığı keyifliydi. Bazen geç saatlere kadar konuşurduk.</div>
+        </div>
+      </div>
+
+      <div class="card-price-row">
+        <div class="price">9.000 ₺ <span>/ ay (faturalar ayrı)</span></div>
+        <button class="btn-contact">İletişime Geç</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">Ev<span>Arkadaşı</span></div>
+  <p>© 2025 EvArkadaşı — Türkiye genelinde güvenli ev arkadaşı platformu. Demo sürümü.</p>
+</footer>
+
+<script>
+  function switchTab(btn, tab) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-seekers').style.display = tab === 'seekers' ? 'grid' : 'none';
+    document.getElementById('tab-hosts').style.display = tab === 'hosts' ? 'grid' : 'none';
+  }
+
+  // Animate bar fills on load
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.bar-fill').forEach(bar => {
+      const w = bar.style.width;
+      bar.style.width = '0';
+      setTimeout(() => { bar.style.width = w; }, 300);
+    });
+  });
+</script>
+</body>
+</html>
